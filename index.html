@@ -16,7 +16,7 @@
       --accent-glow: #ff6e40;
       --gold: #d4a574;
       --text: #e8e0d5;
-      --text-dim: #9e958b;
+      --text-dim: #b8afa5;
       --danger: #ef5350;
       --success: #66bb6a;
       --radius: 10px;
@@ -26,10 +26,11 @@
     body { max-width: 900px; margin: 0 auto; padding: 1.5rem 1.2rem 4rem; }
     /* Typography */
     h1,h2,h3,h4 { line-height: 1.25; color: #fff; }
-    h1 { font-size: 2.2rem; text-align: center; margin: 1.5rem 0 0.5rem; background: linear-gradient(135deg, var(--accent-glow), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    h1 { font-size: 2.8rem; text-align: center; margin: 1.5rem 0 0.5rem; color: var(--accent-glow); }
+    @supports (background-clip: text) { h1 { background: linear-gradient(135deg, var(--accent-glow), var(--gold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; } }
     h2 { font-size: 1.5rem; margin: 2rem 0 0.8rem; padding-bottom: 0.4rem; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 0.5rem; }
     h3 { font-size: 1.2rem; margin: 1.3rem 0 0.5rem; color: var(--gold); }
-    h4 { font-size: 1rem; margin: 1rem 0 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); }
+    h4 { font-size: 1rem; margin: 1rem 0 0.4rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); }
     p, li { color: var(--text); margin-bottom: 0.6rem; }
     strong { color: #fff; }
     a { color: var(--accent-glow); text-decoration: none; }
@@ -42,7 +43,9 @@
     .hero .tagline { font-size: 1.3rem; font-weight: 700; color: var(--accent-glow); margin-bottom: 0.5rem; }
     .hero .tagline em { font-style: normal; color: var(--gold); }
     /* CTA buttons */
-    .cta-group { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin: 1.5rem 0; }
+    .cta-group { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin: 1.5rem 0; position: sticky; top: 0; z-index: 100; padding: 1rem 0; background: rgba(13,13,13,0.75); transition: background 0.3s; }
+    @supports (backdrop-filter: blur(10px)) { .cta-group { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); } }
+    .cta-group::after { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background:rgba(255,255,255,0.05); }
     .btn { display: inline-block; padding: 0.7rem 1.4rem; border-radius: var(--radius); font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; border: none; cursor: pointer; }
     .btn:hover { transform: translateY(-2px); text-decoration: none; }
     .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 2px 12px rgba(244,81,30,0.35); }
@@ -50,15 +53,17 @@
     .btn-outline { background: transparent; color: var(--accent-glow); border: 2px solid var(--accent); }
     .btn-outline:hover { background: rgba(244,81,30,0.1); }
     /* Cards & sections */
-    .card { background: var(--surface); border-radius: var(--radius); padding: 1.3rem 1.5rem; margin-bottom: 1.2rem; border: 1px solid #2a2a2a; }
+    .card { background: linear-gradient(180deg, #1f1f1f 0%, #161616 100%); border-radius: var(--radius); padding: 1.3rem 1.5rem; margin-bottom: 1.2rem; border: 1px solid rgba(255,255,255,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     .card.accent-left { border-left: 4px solid var(--accent); }
     .card.gold-left { border-left: 4px solid var(--gold); }
-    .card.callout { background: #1f1209; border: 1px solid #4a2a14; }
+    .card.callout { background: linear-gradient(180deg, #1f1209 0%, #190e06 100%); border: 1px solid rgba(212,165,116,0.18); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     /* Lezione blocks */
-    .lezione { background: var(--surface); border-radius: var(--radius); padding: 1.8rem 1.6rem; margin: 1.5rem 0; border: 1px solid #2a2a2a; }
+    .lezione { background: linear-gradient(180deg, #1f1f1f 0%, #161616 100%); border-radius: var(--radius); padding: 1.8rem 1.6rem; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .lezione[id] { scroll-margin-top: 80px; }
+    #top { scroll-margin-top: 80px; }
     .lezione .num { display: inline-block; background: var(--accent); color: #fff; width: 2rem; height: 2rem; border-radius: 50%; text-align: center; line-height: 2rem; font-weight: 700; font-size: 0.9rem; margin-right: 0.5rem; vertical-align: middle; }
     /* Process steps */
-    .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; }
+    .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 2rem; }
     .step-num { flex-shrink: 0; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--accent); color: #fff; text-align: center; line-height: 2.4rem; font-weight: 700; font-size: 1rem; }
     .step-content { flex: 1; }
     /* Heat zones viz */
@@ -66,6 +71,10 @@
     .zone-demo .coal { padding: 0.4rem 0.8rem; border-radius: 5px; background: #3a1f0a; color: var(--accent-glow); font-weight: 700; font-size: 0.9rem; }
     .zone-demo .food { padding: 0.4rem 0.8rem; border-radius: 5px; background: var(--surface2); font-weight: 700; }
     .zone-demo .empty { padding: 0.4rem 0.8rem; color: var(--text-dim); font-style: italic; }
+    .coal-pill { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+    .coal-pill.active { background: linear-gradient(135deg, #f4511e, #ff8f00); color: #fff; box-shadow: 0 0 10px rgba(244,81,30,0.5); }
+    .food-pill { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; background: var(--surface2); border: 1px solid var(--gold); color: var(--gold); }
+    .zone-label { padding: 0.4rem 0.8rem; color: var(--text-dim); font-style: italic; font-size: 0.85rem; }
     /* Tables */
     .table-wrap { overflow-x: auto; margin: 1rem 0; }
     table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 600px; }
@@ -74,33 +83,69 @@
     tr:hover td { background: var(--surface2); }
     /* Doneness grid */
     .doneness-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.8rem; margin: 1rem 0; }
-    .doneness-card { background: var(--surface2); border-radius: var(--radius); padding: 1rem; text-align: center; border: 1px solid #2a2a2a; }
+    .doneness-card { background: linear-gradient(180deg, #262626 0%, #1e1e1e 100%); border-radius: var(--radius); padding: 1rem; text-align: center; border: 1px solid rgba(255,255,255,0.03); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
     .doneness-card .temp { font-size: 1.6rem; font-weight: 800; color: var(--accent-glow); }
     .doneness-card .label { font-size: 0.85rem; color: var(--text-dim); margin-top: 0.2rem; }
     /* Air vents diagram */
     .vent-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
-    .vent-box { background: var(--surface2); border-radius: var(--radius); padding: 1rem; text-align: center; }
+    .vent-box { background: linear-gradient(180deg, #262626 0%, #1e1e1e 100%); border-radius: var(--radius); padding: 1rem; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
     .vent-box .icon { font-size: 2rem; }
     .vent-box .note { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.3rem; }
     .vent-box.inferiore { border: 2px solid var(--accent); }
     .vent-box.superiore { border: 2px solid var(--success); }
     /* Tip / warning blocks */
-    .warn { background: #2d140e; border-left: 4px solid var(--danger); padding: 0.8rem 1rem; border-radius: 0 var(--radius) var(--radius) 0; margin: 0.8rem 0; color: #f4a4a0; font-size: 0.9rem; }
-    .tip { background: #0e2a18; border-left: 4px solid var(--success); padding: 0.8rem 1rem; border-radius: 0 var(--radius) var(--radius) 0; margin: 0.8rem 0; font-size: 0.9rem; }
+    .warn { background: rgba(239,83,80,0.06); border-left: 5px solid var(--danger); padding: 0.8rem 1rem; border-radius: 0 var(--radius) var(--radius) 0; margin: 0.8rem 0; color: var(--text); font-size: 0.9rem; }
+    .warn strong { color: var(--danger); }
+    .tip { background: rgba(102,187,106,0.06); border-left: 5px solid var(--success); padding: 0.8rem 1rem; border-radius: 0 var(--radius) var(--radius) 0; margin: 0.8rem 0; font-size: 0.9rem; }
     /* Footer */
     footer { text-align: center; margin-top: 3rem; padding: 2rem 0; border-top: 1px solid #2a2a2a; color: var(--text-dim); font-size: 0.85rem; }
-    .kicker { text-align: center; padding: 3rem 0; }
-    .kicker h2 { border: none; display: block; text-align: center; }
     /* Responsive */
     @media (max-width: 600px) {
       html { font-size: 15px; }
+      body { padding: 1rem 0.5rem; }
+      .lezione { padding: 1rem 0.8rem; }
+      .card { padding: 1rem; }
       .vent-row { grid-template-columns: 1fr; }
       .step { flex-direction: column; gap: 0.3rem; }
-      h1 { font-size: 1.6rem; }
+      h1 { font-size: 2rem; }
+      .cta-group .btn { font-size: 0.85rem; padding: 0.55rem 1rem; }
+      /* Tabelle → Card verticali */
+      .table-wrap table, .table-wrap thead, .table-wrap tbody, .table-wrap th, .table-wrap td, .table-wrap tr { display: block; }
+      .table-wrap thead { display: none; }
+      .table-wrap tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--accent);
+        padding: 0.8rem;
+        border-radius: var(--radius);
+        background: var(--surface2);
+      }
+      .table-wrap td {
+        border: none;
+        padding: 0.25rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+      }
+      .table-wrap td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--accent-glow);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        text-align: left;
+        min-width: 5.5rem;
+      }
     }
     /* Accessibility */
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
     :focus-visible { outline: 2px solid var(--accent-glow); outline-offset: 2px; }
+    /* Back to top */
+    .back-to-top { position: fixed; bottom: 1.5rem; right: 1.5rem; width: 3rem; height: 3rem; border-radius: 50%; background: var(--accent); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: 0 2px 12px rgba(244,81,30,0.5); opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
+    .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .back-to-top:hover { background: var(--accent-glow); transform: translateY(-3px); }
   </style>
 </head>
 <body>
@@ -125,8 +170,9 @@
   <div class="step"><div class="step-num">1</div><div class="step-content"><p><strong>Pulisci la griglia e svuota il catino.</strong> Rimuovi la cenere della grigliata precedente: la cenere blocca il flusso d'aria e impedisce alla brace di raggiungere temperatura. Usa il sistema <em>One-Touch</em> di Weber ruotando la leva per far cadere la cenere nel raccoglitore. Pulisci la griglia con spazzola in acciaio inossidabile.</p></div></div>
   <div class="step"><div class="step-num">2</div><div class="step-content"><p><strong>Usa il camino di accensione (chimney starter).</strong> Riempi il camino con <strong>bricchetti di qualità</strong> (Weber o Kingsford). Sotto al camino metti 2–3 cubetti accendifuoco naturali — mai liquido infiammabile. Accendi e attendi. I bricchetti sono pronti quando la cenere grigio-bianca copre la superficie: <strong>circa 15–20 minuti</strong>.</p></div></div>
   <div class="step"><div class="step-num">3</div><div class="step-content"><p><strong>Versa i bricchetti accesi nella griglia.</strong> Quando i bricchetti in cima al camino sono coperti di cenere bianca, versali con cautela sulla griglia di carbone usando guanti termici. Disponili secondo la tecnica che userai: diretta (strato uniforme) o indiretta (carboni ai lati).</p></div></div>
-  <div class="step"><div class="step-num">4</div><div class="step-content"><p><strong>Gestisci le prese d'aria — il vero segreto.</strong> Il Weber 5750 ha due prese d'aria: quella inferiore (sistema One-Touch, ingresso ossigeno) e quella superiore sul coperchio (tiraggio fumi). <strong>La regola d'oro: la presa superiore rimane SEMPRE aperta al 100% durante tutta la cottura.</strong> Se la chiudi anche solo parzialmente, il fumo ristagna, si raffredda, crea condensa e deposita creosote sul cibo — sapore amaro e acre garantito.</p>
-  <p><strong>Il vero termostato è la presa inferiore (One-Touch).</strong> È da sotto che strozzi l'ossigeno per controllare la temperatura. Aperta = massimo calore. Parzialmente chiusa = meno calore. La presa superiore si chiude al 100% SOLO a fine grigliata, insieme a quella inferiore, per spegnere i carboni.</p>
+  <div class="step"><div class="step-num">4</div><div class="step-content"><p><strong>Gestisci le prese d'aria — il vero segreto.</strong> Il Weber 5750 ha due prese d'aria: quella inferiore (sistema One-Touch, ingresso ossigeno) e quella superiore sul coperchio (tiraggio fumi). <strong>La regola base: la presa superiore rimane aperta al 100% durante quasi tutta la cottura.</strong> Se la chiudi anche solo parzialmente senza criterio, il fumo ristagna, si raffredda, crea condensa e deposita creosote sul cibo — sapore amaro e acre garantito.</p>
+  <p><strong>Il vero termostato è la presa inferiore (One-Touch).</strong> È da sotto che strozzi l'ossigeno per controllare la temperatura. Aperta = massimo calore. Parzialmente chiusa = meno calore. <strong>Eccezione per pitmaster:</strong> in caso di forte vento o sessioni invernali sotto i 5°C, il tiraggio naturale diventa eccessivo e la temperatura schizza. In quelle condizioni, riduci la presa superiore fino a 1/4 come freno d'emergenza — è l'unico scenario in cui parzializzare sopra ha senso.</p>
+  <p>La presa superiore si chiude al 100% SOLO a fine grigliata, insieme a quella inferiore, per spegnere i carboni.</p>
   <div class="vent-row">
     <div class="vent-box inferiore">
       <div class="icon">▼</div>
@@ -141,7 +187,7 @@
   </div>
   </div></div>
   <div class="step"><div class="step-num">5</div><div class="step-content"><p><strong>Preriscalda la griglia 5–10 minuti.</strong> Con i carboni pronti e le prese d'aria regolate, metti la griglia di cottura, chiudi il coperchio e lascia scaldare. Poi spazzola la griglia calda e ungila con un panno imbevuto d'olio (non spray). Ora sei pronto per cucinare.</p></div></div>
-  <div class="warn">⚠️ <strong>MAI usare diavolina liquida o alcol.</strong> Rovina il sapore della carne e lascia residui chimici. Solo cubetti accendifuoco naturale.</div>
+  <div class="warn"><strong>MAI usare diavolina liquida o alcol.</strong> Rovina il sapore della carne e lascia residui chimici. Solo cubetti accendifuoco naturale.</div>
 </section>
 
 <!-- ===== LEZIONE 2: TWO-ZONE FIRE ===== -->
@@ -150,30 +196,35 @@
   <p>Ogni grigliata a carbonella si basa su un principio solo: <strong>avere una zona calda e una zona fredda.</strong> È così che controlli davvero la cottura. Chi cucina su uno strato uniforme di carboni è in balìa del fuoco. Il pitmaster lo domina.</p>
 
   <div class="card accent-left">
-    <h3>🟠 Diretta — Strato Uniforme</h3>
+    <h3>Diretta — Strato Uniforme</h3>
     <p>Bricchetti distribuiti su tutta la superficie della griglia carbone. Calore uniforme e intenso. Perfetto per bistecche, hamburger, salsicce, verdure. Presa inferiore: 100% aperta.</p>
-    <div class="zone-demo"><span class="coal">🟠🟠🟠🟠</span><span class="coal">🟠🟠🟠🟠</span><span class="coal">🟠🟠🟠🟠</span></div>
+    <div class="zone-demo"><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span></div>
   </div>
 
   <div class="card gold-left">
-    <h3>🟠&emsp;🐔&emsp;🟠 Indiretta — Due Zone Laterali</h3>
+    <h3>Indiretta — Due Zone Laterali</h3>
     <p>Bricchetti disposti ai lati, centro vuoto (con vaschetta raccogli-gocce). Il cibo cuoce al centro, lontano dal fuoco diretto. Per arrosti, polli interi, costine, pulled pork. Presa inferiore: 30–50%.</p>
-    <div class="zone-demo"><span class="coal">🟠🟠</span><span class="food">🐔</span><span class="coal">🟠🟠</span></div>
+    <div class="zone-demo"><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="food-pill">Pollo</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span></div>
   </div>
 
   <div class="card accent-left">
-    <h3>🟠🟠🟠&emsp;&emsp; Mista — Metà e Metà</h3>
+    <h3>Mista — Metà e Metà</h3>
     <p>Bricchetti solo su metà griglia. L'altra metà è zona di sicurezza. Ideale per reverse sear e per spostare la carne se il fuoco è troppo vivo. Presa inferiore: 50–70%.</p>
-    <div class="zone-demo"><span class="coal">🟠🟠🟠</span><span class="empty">zona fredda</span></div>
+    <div class="zone-demo"><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="zone-label">zona fredda</span></div>
   </div>
 
   <div class="card callout">
-    <h4>🔢 Quanti bricchetti servono?</h4>
+    <h4>Quanti bricchetti servono?</h4>
     <ul>
       <li><strong>Cottura diretta (260–290°C):</strong> 1 camino pieno (~100 bricchetti). Basta per 40–50 minuti.</li>
       <li><strong>Cottura indiretta (180–200°C):</strong> 1 camino pieno, diviso in due mucchi laterali. Dura 50–70 minuti.</li>
       <li><strong>Low & Slow (110–130°C):</strong> ½ camino acceso + ½ camino di bricchetti nuovi (non accesi) da aggiungere. Ricarica ogni 45–60 minuti.</li>
     </ul>
+  </div>
+
+  <div class="card callout">
+    <h4>Il Metodo Minion</h4>
+    <p>Alternativa allo Snake per Low & Slow: disponi <strong>un letto di bricchetti crudi</strong> su tutta la superficie della griglia carbone, poi scava un buco al centro e versa lì sopra <strong>10–12 bricchetti roventi</strong> dal camino. I carboni accesi innescano quelli crudi dal centro verso l'esterno, a raggiera. Rispetto allo Snake, il Minion <strong>raggiunge temperatura prima</strong> (idealmente 110–130°C), ma brucia più bricchetti e dura meno (5–7 ore). Ideale per costine e pulled pork quando non ti servono 8+ ore. Presa inferiore: 25–30%, superiore: 100%.</p>
   </div>
 </section>
 
@@ -182,7 +233,7 @@
   <h2 id="l3-heading"><span class="num">3</span> Cottura Diretta vs Indiretta</h2>
 
   <div class="card">
-    <h3>⚡ Diretta — Sopra la Brace</h3>
+    <h3>Diretta — Sopra la Brace</h3>
     <ul>
       <li><strong>Disposizione:</strong> strato uniforme su tutta la griglia.</li>
       <li><strong>Quando usarla:</strong> bistecche, hamburger, spiedini, verdura, pesce a filetti.</li>
@@ -195,7 +246,7 @@
   </div>
 
   <div class="card">
-    <h3>🔄 Indiretta — Calore a Convezione</h3>
+    <h3>Indiretta — Calore a Convezione</h3>
     <ul>
       <li><strong>Disposizione:</strong> carboni ai lati, centro libero (con vaschetta raccogli-gocce).</li>
       <li><strong>Quando usarla:</strong> arrosti, polli interi, costine, pulled pork, pesce intero, pane.</li>
@@ -208,15 +259,15 @@
   </div>
 
   <div class="card accent-left">
-    <h3>🥩 Reverse Sear — Il Meglio dei Due Mondi</h3>
+    <h3>Reverse Sear — Il Meglio dei Due Mondi</h3>
     <p>Per bistecche spesse (&gt;3 cm) e arrosti: prima cottura indiretta a 110–130°C (carboni ai lati) fino a 5–8°C sotto la temperatura target interna. Poi sposta la carne sulla zona calda (o aggiungi un camino di carboni freschi e roventi) e scotta 1–2 minuti per lato a fuoco altissimo.</p>
     <p><strong>Risultato:</strong> interno perfettamente uniforme dal bordo al centro, crosta profonda e scura. Il miglior metodo possibile per bistecche spesse sul Weber 5750.</p>
   </div>
 
   <div class="card callout">
-    <h4>🐍 Il Metodo Snake</h4>
+    <h4>Il Metodo Snake</h4>
     <p>Disponi i bricchetti a ferro di cavallo lungo il bordo interno della griglia carbone: <strong>2 bricchetti affiancati come base + 2 bricchetti appoggiati sopra (schema 2×2).</strong> Accendi solo un'estremità della catena mettendo 8–10 bricchetti roventi in testa al serpente. La brace si consuma lentamente a catena lungo il percorso, garantendo <strong>6–8 ore di fuoco stabile a 110–120°C.</strong> Presa inferiore: 25%, superiore: 100%. Perfetto per brisket e pulled pork.</p>
-    <div class="zone-demo"><span class="coal">🟠🟠</span><span style="color:var(--text-dim)">→ senso di accensione →</span><span class="coal">🟠🟠</span><span class="coal">🟠🟠</span></div>
+    <div class="zone-demo"><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="zone-label">senso di accensione →</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span><span class="coal-pill active">Brace</span></div>
   </div>
 </section>
 
@@ -225,13 +276,13 @@
   <h2 id="l4-heading"><span class="num">4</span> Temperature del Barbecue</h2>
   <p>Ogni pietanza ha la sua temperatura ideale. Impara a controllare le zone di calore con le prese d'aria.</p>
 
-  <div class="card"><strong>🐌 Bassa / Low & Slow — 95–135°C.</strong> Brisket, pulled pork, costine. Presa inferiore: 25%. Cotture 4–12 ore. Metodo Snake o minion.</div>
-  <div class="card"><strong>🔥 Media-Bassa — 150–180°C.</strong> Polli interi, arrosti grandi, pesce intero. Indiretta. Presa inferiore: 35%.</div>
-  <div class="card"><strong>🔥🔥 Media — 180–230°C.</strong> Costolette, salsicce, cosce di pollo, verdure. Versatile. Presa inferiore: 50%.</div>
-  <div class="card"><strong>🔥🔥🔥 Media-Alta — 230–290°C.</strong> Bistecche, hamburger, spiedini. Diretta. Presa inferiore: 80%.</div>
-  <div class="card"><strong>💥 Alta / Max — Scottatura — 290–340°C.</strong> Solo per scottare (sear) o pizza. Presa inferiore: 100%. Carboni freschi e abbondanti.</div>
+  <div class="card"><strong>Bassa / Low & Slow — 95–135°C.</strong> Brisket, pulled pork, costine. Presa inferiore: 25%. Cotture 4–12 ore. Usa il metodo Snake (per sessioni 8+ ore) o il Minion (per 5–7 ore, temperature più rapide).</div>
+  <div class="card"><strong>Media-Bassa — 150–180°C.</strong> Polli interi, arrosti grandi, pesce intero. Indiretta. Presa inferiore: 35%.</div>
+  <div class="card"><strong>Media — 180–230°C.</strong> Costolette, salsicce, cosce di pollo, verdure. Versatile. Presa inferiore: 50%.</div>
+  <div class="card"><strong>Media-Alta — 230–290°C.</strong> Bistecche, hamburger, spiedini. Diretta. Presa inferiore: 80%.</div>
+  <div class="card"><strong>Alta / Max — Scottatura — 290–340°C.</strong> Solo per scottare (sear) o pizza. Presa inferiore: 100%. Carboni freschi e abbondanti.</div>
 
-  <div class="tip">💡 <strong>Un buon termometro digitale a sonda (ThermoPro, Meater, Weber Connect) è l'investimento più importante.</strong> Inserisci la sonda nel punto più spesso della carne, lontano dall'osso. Non fidarti solo del termometro del coperchio: può sballare di 20–30°C. Usa una sonda da griglia appoggiata sulla superficie di cottura per la temperatura reale.</div>
+  <div class="tip"><strong>Un buon termometro digitale a sonda (ThermoPro, Meater, Weber Connect) è l'investimento più importante.</strong> Inserisci la sonda nel punto più spesso della carne, lontano dall'osso. Non fidarti solo del termometro del coperchio: può sballare di 20–30°C. Usa una sonda da griglia appoggiata sulla superficie di cottura per la temperatura reale.</div>
 </section>
 
 <!-- ===== LEZIONE 5: GRADI DI COTTURA ===== -->
@@ -241,13 +292,13 @@
 
   <div class="doneness-grid">
     <div class="doneness-card"><div class="temp">48–50°C</div><strong>Rare — Al Sangue</strong><div class="label">Rosso vivo, tiepido al centro. Togli a 46°C (sale a riposo).</div></div>
-    <div class="doneness-card"><div class="temp">52–55°C</div><strong>Medium Rare ⭐</strong><div class="label">Rosa-rosso, caldo al centro. Il punto perfetto per bistecche e arrosti.</div></div>
+    <div class="doneness-card"><div class="temp">52–55°C</div><strong>Medium Rare</strong><div class="label">Rosa-rosso, caldo al centro. Il punto perfetto per bistecche e arrosti.</div></div>
     <div class="doneness-card"><div class="temp">56–62°C</div><strong>Medium</strong><div class="label">Rosa uniforme, ben caldo. Meno succoso. Togli a 58°C.</div></div>
     <div class="doneness-card"><div class="temp">65–70°C</div><strong>Well Done</strong><div class="label">Niente rosa, marrone uniforme. Mai superare 70°C o diventa secco.</div></div>
   </div>
 
   <div class="card callout">
-    <h4>🧠 La Regola del Riposo (Carryover Cooking)</h4>
+    <h4>La Regola del Riposo (Carryover Cooking)</h4>
     <p>Togli la carne <strong>3–5°C PRIMA</strong> della temperatura target. Durante il riposo sale di 3–6°C. Tagliare subito = tutto il succo fuori.</p>
     <ul>
       <li><strong>Bistecche / hamburger:</strong> 5 minuti.</li>
@@ -257,96 +308,96 @@
     <p>Copri con alluminio leggero (non stretto). Sul Weber: usa la zona senza carboni come zona di riposo tiepida a coperchio chiuso.</p>
   </div>
 
-  <div class="warn"><strong>🥩 Temperatura ambiente — obbligatorio.</strong> Tira fuori la carne dal frigo 30–45 minuti prima. Carne fredda sul fuoco = esterno bruciato, interno crudo. Eccezioni: hamburger fatti in casa e salsicce (devono stare freddi per non sfaldarsi), e il pollame in estate (max 20 minuti fuori frigo per sicurezza).</div>
+  <div class="warn"><strong>Temperatura ambiente — obbligatorio.</strong> Tira fuori la carne dal frigo 30–45 minuti prima. Carne fredda sul fuoco = esterno bruciato, interno crudo. Eccezioni: hamburger fatti in casa e salsicce (devono stare freddi per non sfaldarsi), e il pollame in estate (max 20 minuti fuori frigo per sicurezza).</div>
 </section>
 
 <!-- ===== TABELLE ===== -->
 <section class="lezione" id="tabelle" aria-labelledby="tabelle-heading">
-  <h2 id="tabelle-heading">📋 Tabelle Complete — Tutte le Pietanze</h2>
+  <h2 id="tabelle-heading">Tabelle Complete — Tutte le Pietanze</h2>
 
-  <h3>🐂 Manzo</h3>
+  <h3>Manzo</h3>
   <div class="table-wrap">
     <table aria-label="Tabella cottura manzo">
       <thead><tr><th>Taglio</th><th>Spessore</th><th>Tecnica</th><th>Temp BBQ</th><th>Temp Interna</th><th>Cottura</th><th>Tempo indicativo</th></tr></thead>
       <tbody>
-        <tr><td>Bistecca (Ribeye, T-Bone, NY Strip)</td><td>2–3 cm</td><td>Diretta</td><td>260–290°C</td><td>52–55°C</td><td>Medium Rare</td><td>pochi min/lato</td></tr>
-        <tr><td>Bistecca spessa (Tomahawk, Cowboy)</td><td>4–6 cm</td><td>Reverse Sear</td><td>120→290°C</td><td>52–55°C</td><td>Medium Rare</td><td>25–35m + sear</td></tr>
-        <tr><td>Filetto (Tournedos)</td><td>4–5 cm</td><td>Diretta</td><td>260–290°C</td><td>50–52°C</td><td>Rare/Med-Rare</td><td>pochi min/lato</td></tr>
-        <tr><td>Fiorentina</td><td>4–6 cm</td><td>Reverse Sear</td><td>120→290°C</td><td>52–55°C</td><td>Medium Rare</td><td>30–40m + sear</td></tr>
-        <tr><td>Hamburger (200g)</td><td>2 cm</td><td>Diretta</td><td>260–290°C</td><td>58°C</td><td>Medium</td><td>pochi min/lato</td></tr>
-        <tr><td>Brisket (punta di petto)</td><td>Intero (3–5 kg)</td><td>Snake / Low &amp; Slow</td><td>110–120°C</td><td>92–96°C</td><td>Sfilacciabile</td><td>8–12 ore</td></tr>
-        <tr><td>Roast Beef (scamone o girello)</td><td>1–1.5 kg</td><td>Indiretta</td><td>180–200°C</td><td>52–55°C</td><td>Medium Rare</td><td>45–60 min</td></tr>
-        <tr><td>Short Ribs</td><td>Intero</td><td>Snake / Low &amp; Slow</td><td>120–135°C</td><td>92–96°C</td><td>Tenerissimo</td><td>5–7 ore</td></tr>
-        <tr><td>Picanha</td><td>Cappello 3–4 cm</td><td>Diretta (spiedi o trancio)</td><td>250–270°C</td><td>52–55°C</td><td>Medium Rare</td><td>pochi min totali</td></tr>
-        <tr><td>Entraña / Skirt Steak</td><td>Sottile</td><td>Diretta max</td><td>290–340°C</td><td>52°C</td><td>Medium Rare</td><td>pochi min/lato</td></tr>
-        <tr><td>Flank Steak (Bavetta)</td><td>1.5–2 cm</td><td>Diretta alta</td><td>280–310°C</td><td>52–54°C</td><td>Medium Rare</td><td>pochi min/lato</td></tr>
+        <tr><td data-label="Taglio">Bistecca (Ribeye, T-Bone, NY Strip)</td><td data-label="Spessore">2–3 cm</td><td data-label="Tecnica">Diretta</td><td data-label="Temp BBQ">260–290°C</td><td data-label="Temp Interna">52–55°C</td><td data-label="Cottura">Medium Rare</td><td data-label="Tempo">pochi min/lato</td></tr>
+        <tr><td data-label="Taglio">Bistecca spessa (Tomahawk, Cowboy)</td><td data-label="Spessore">4–6 cm</td><td data-label="Tecnica">Reverse Sear</td><td data-label="Temp BBQ">120→290°C</td><td data-label="Temp Interna">52–55°C</td><td data-label="Cottura">Medium Rare</td><td data-label="Tempo">25–35m + sear</td></tr>
+        <tr><td data-label="Taglio">Filetto (Tournedos)</td><td data-label="Spessore">4–5 cm</td><td data-label="Tecnica">Diretta</td><td data-label="Temp BBQ">260–290°C</td><td data-label="Temp Interna">50–52°C</td><td data-label="Cottura">Rare/Med-Rare</td><td data-label="Tempo">pochi min/lato</td></tr>
+        <tr><td data-label="Taglio">Fiorentina</td><td data-label="Spessore">4–6 cm</td><td data-label="Tecnica">Reverse Sear</td><td data-label="Temp BBQ">120→290°C</td><td data-label="Temp Interna">52–55°C</td><td data-label="Cottura">Medium Rare</td><td data-label="Tempo">30–40m + sear</td></tr>
+        <tr><td data-label="Taglio">Hamburger (200g)</td><td data-label="Spessore">2 cm</td><td data-label="Tecnica">Diretta</td><td data-label="Temp BBQ">260–290°C</td><td data-label="Temp Interna">58°C</td><td data-label="Cottura">Medium</td><td data-label="Tempo">pochi min/lato</td></tr>
+        <tr><td data-label="Taglio">Brisket (punta di petto)</td><td data-label="Spessore">Intero (3–5 kg)</td><td data-label="Tecnica">Snake / Low &amp; Slow</td><td data-label="Temp BBQ">110–120°C</td><td data-label="Temp Interna">92–96°C</td><td data-label="Cottura">Sfilacciabile</td><td data-label="Tempo">8–12 ore</td></tr>
+        <tr><td data-label="Taglio">Roast Beef (scamone o girello)</td><td data-label="Spessore">1–1.5 kg</td><td data-label="Tecnica">Indiretta</td><td data-label="Temp BBQ">180–200°C</td><td data-label="Temp Interna">52–55°C</td><td data-label="Cottura">Medium Rare</td><td data-label="Tempo">45–60 min</td></tr>
+        <tr><td data-label="Taglio">Short Ribs</td><td data-label="Spessore">Intero</td><td data-label="Tecnica">Snake / Low &amp; Slow</td><td data-label="Temp BBQ">120–135°C</td><td data-label="Temp Interna">92–96°C</td><td data-label="Cottura">Tenerissimo</td><td data-label="Tempo">5–7 ore</td></tr>
+        <tr><td data-label="Taglio">Picanha</td><td data-label="Spessore">Cappello 3–4 cm</td><td data-label="Tecnica">Diretta (spiedi o trancio)</td><td data-label="Temp BBQ">250–270°C</td><td data-label="Temp Interna">52–55°C</td><td data-label="Cottura">Medium Rare</td><td data-label="Tempo">pochi min totali</td></tr>
+        <tr><td data-label="Taglio">Entraña / Skirt Steak</td><td data-label="Spessore">Sottile</td><td data-label="Tecnica">Diretta max</td><td data-label="Temp BBQ">290–340°C</td><td data-label="Temp Interna">52°C</td><td data-label="Cottura">Medium Rare</td><td data-label="Tempo">pochi min/lato</td></tr>
+        <tr><td data-label="Taglio">Flank Steak (Bavetta)</td><td data-label="Spessore">1.5–2 cm</td><td data-label="Tecnica">Diretta alta</td><td data-label="Temp BBQ">280–310°C</td><td data-label="Temp Interna">52–54°C</td><td data-label="Cottura">Medium Rare</td><td data-label="Tempo">pochi min/lato</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h3>🐖 Maiale</h3>
+  <h3>Maiale</h3>
   <div class="table-wrap">
     <table aria-label="Tabella cottura maiale">
       <thead><tr><th>Taglio</th><th>Spessore</th><th>Tecnica</th><th>Temp BBQ</th><th>Temp Interna</th><th>Tempo indicativo</th></tr></thead>
       <tbody>
-        <tr><td>Costolette (Baby Back Ribs)</td><td>Mezzo rack</td><td>Snake / Low &amp; Slow</td><td>120–135°C</td><td>88–92°C</td><td>3–4 ore</td></tr>
-        <tr><td>Ribs St. Louis Cut</td><td>Rack intero</td><td>Snake / Low &amp; Slow</td><td>120–135°C</td><td>88–92°C</td><td>4–5 ore</td></tr>
-        <tr><td>Pulled Pork (Spalla intera)</td><td>2–4 kg</td><td>Snake / Low &amp; Slow</td><td>110–120°C</td><td>92–96°C</td><td>8–12 ore</td></tr>
-        <tr><td>Braciole con osso</td><td>2–3 cm</td><td>Diretta</td><td>230–260°C</td><td>63°C</td><td>pochi min/lato</td></tr>
-        <tr><td>Lonza di maiale (arrosto)</td><td>1–1.5 kg</td><td>Indiretta</td><td>180–200°C</td><td>63–65°C</td><td>50–70 min</td></tr>
-        <tr><td>Salsicce</td><td>—</td><td>Diretta media</td><td>200–230°C</td><td>70–72°C</td><td>12–16 min</td></tr>
-        <tr><td>Pancetta / Bacon (fette spesse)</td><td>3 mm</td><td>Diretta bassa</td><td>160–180°C</td><td>Croccante</td><td>4–6 min/lato</td></tr>
-        <tr><td>Costine alla coreana (Kalbi)</td><td>Sottili</td><td>Diretta alta</td><td>250–280°C</td><td>70°C</td><td>2–3 min/lato</td></tr>
+        <tr><td data-label="Taglio">Costolette (Baby Back Ribs)</td><td data-label="Spessore">Mezzo rack</td><td data-label="Tecnica">3-2-1 / Snake</td><td data-label="Temp BBQ">120–135°C</td><td data-label="Temp Interna">88–92°C</td><td data-label="Tempo">5–6 ore</td></tr>
+        <tr><td data-label="Taglio">Ribs St. Louis Cut</td><td data-label="Spessore">Rack intero</td><td data-label="Tecnica">3-2-1 / Snake</td><td data-label="Temp BBQ">120–135°C</td><td data-label="Temp Interna">88–92°C</td><td data-label="Tempo">5–6 ore</td></tr>
+        <tr><td data-label="Taglio">Pulled Pork (Spalla intera)</td><td data-label="Spessore">2–4 kg</td><td data-label="Tecnica">Snake / Low &amp; Slow</td><td data-label="Temp BBQ">110–120°C</td><td data-label="Temp Interna">92–96°C</td><td data-label="Tempo">8–12 ore</td></tr>
+        <tr><td data-label="Taglio">Braciole con osso</td><td data-label="Spessore">2–3 cm</td><td data-label="Tecnica">Diretta</td><td data-label="Temp BBQ">230–260°C</td><td data-label="Temp Interna">63°C</td><td data-label="Tempo">pochi min/lato</td></tr>
+        <tr><td data-label="Taglio">Lonza di maiale (arrosto)</td><td data-label="Spessore">1–1.5 kg</td><td data-label="Tecnica">Indiretta</td><td data-label="Temp BBQ">180–200°C</td><td data-label="Temp Interna">63–65°C</td><td data-label="Tempo">50–70 min</td></tr>
+        <tr><td data-label="Taglio">Salsicce</td><td data-label="Spessore">—</td><td data-label="Tecnica">Diretta media</td><td data-label="Temp BBQ">200–230°C</td><td data-label="Temp Interna">70–72°C</td><td data-label="Tempo">12–16 min</td></tr>
+        <tr><td data-label="Taglio">Pancetta / Bacon (fette spesse)</td><td data-label="Spessore">3 mm</td><td data-label="Tecnica">Diretta bassa</td><td data-label="Temp BBQ">160–180°C</td><td data-label="Temp Interna">Croccante</td><td data-label="Tempo">4–6 min/lato</td></tr>
+        <tr><td data-label="Taglio">Costine alla coreana (Kalbi)</td><td data-label="Spessore">Sottili</td><td data-label="Tecnica">Diretta alta</td><td data-label="Temp BBQ">250–280°C</td><td data-label="Temp Interna">70°C</td><td data-label="Tempo">2–3 min/lato</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h3>🐔 Pollame</h3>
+  <h3>Pollame</h3>
   <div class="table-wrap">
     <table aria-label="Tabella cottura pollame">
       <thead><tr><th>Taglio</th><th>Peso/Spessore</th><th>Tecnica</th><th>Temp BBQ</th><th>Temp Interna</th><th>Tempo indicativo</th></tr></thead>
       <tbody>
-        <tr><td>Pollo intero</td><td>1.5–2 kg</td><td>Indiretta</td><td>180–200°C</td><td>66–68°C (petto) / 78–80°C (coscia)</td><td>60–80 min</td></tr>
-        <tr><td>Petto di pollo (con osso e pelle)</td><td>—</td><td>Diretta media + indiretta</td><td>200°C</td><td>65–68°C</td><td>30–40 min</td></tr>
-        <tr><td>Petto di pollo (senza osso)</td><td>2 cm</td><td>Diretta media</td><td>200–230°C</td><td>65–68°C</td><td>pochi min/lato</td></tr>
-        <tr><td>Cosciotti / Sovracosce</td><td>—</td><td>Diretta</td><td>200–230°C</td><td>78–80°C</td><td>8–10 min/lato</td></tr>
-        <tr><td>Ali di pollo</td><td>—</td><td>Indiretta → Diretta</td><td>160→230°C</td><td>74°C</td><td>25m + 5m/lato</td></tr>
-        <tr><td>Tacchino intero</td><td>4–6 kg</td><td>Indiretta</td><td>160–180°C</td><td>66–68°C (petto)</td><td>2.5–3.5 ore</td></tr>
-        <tr><td>Spiedini di pollo</td><td>Cubetti 3 cm</td><td>Diretta</td><td>230–250°C</td><td>68–70°C</td><td>10–12 min</td></tr>
+        <tr><td data-label="Taglio">Pollo intero</td><td data-label="Peso/Spessore">1.5–2 kg</td><td data-label="Tecnica">Indiretta</td><td data-label="Temp BBQ">180–200°C</td><td data-label="Temp Interna">66–68°C (petto) / 78–80°C (coscia)</td><td data-label="Tempo">60–80 min</td></tr>
+        <tr><td data-label="Taglio">Petto di pollo (con osso e pelle)</td><td data-label="Peso/Spessore">—</td><td data-label="Tecnica">Diretta media + indiretta</td><td data-label="Temp BBQ">200°C</td><td data-label="Temp Interna">65–68°C</td><td data-label="Tempo">30–40 min</td></tr>
+        <tr><td data-label="Taglio">Petto di pollo (senza osso)</td><td data-label="Peso/Spessore">2 cm</td><td data-label="Tecnica">Diretta media</td><td data-label="Temp BBQ">200–230°C</td><td data-label="Temp Interna">65–68°C</td><td data-label="Tempo">pochi min/lato</td></tr>
+        <tr><td data-label="Taglio">Cosciotti / Sovracosce</td><td data-label="Peso/Spessore">—</td><td data-label="Tecnica">Diretta</td><td data-label="Temp BBQ">200–230°C</td><td data-label="Temp Interna">78–80°C</td><td data-label="Tempo">8–10 min/lato</td></tr>
+        <tr><td data-label="Taglio">Ali di pollo</td><td data-label="Peso/Spessore">—</td><td data-label="Tecnica">Indiretta → Diretta</td><td data-label="Temp BBQ">160→230°C</td><td data-label="Temp Interna">74°C</td><td data-label="Tempo">25m + 5m/lato</td></tr>
+        <tr><td data-label="Taglio">Tacchino intero</td><td data-label="Peso/Spessore">4–6 kg</td><td data-label="Tecnica">Indiretta</td><td data-label="Temp BBQ">160–180°C</td><td data-label="Temp Interna">66–68°C (petto)</td><td data-label="Tempo">2.5–3.5 ore</td></tr>
+        <tr><td data-label="Taglio">Spiedini di pollo</td><td data-label="Peso/Spessore">Cubetti 3 cm</td><td data-label="Tecnica">Diretta</td><td data-label="Temp BBQ">230–250°C</td><td data-label="Temp Interna">68–70°C</td><td data-label="Tempo">10–12 min</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="tip">💡 <strong>Petto di pollo: 65–68°C è la temperatura da pitmaster.</strong> La salmonella muore a 60°C se mantenuta per 12 minuti (pastorizzazione a bassa temperatura). A 73°C il petto è già stracotto e secco. Togli a 63–65°C, lascia riposare: arriva a 68°C e resta succosissimo.</div>
+  <div class="tip"><strong>Petto di pollo: 65–68°C è la temperatura da pitmaster.</strong> La salmonella muore a 60°C se mantenuta per 12 minuti (pastorizzazione a bassa temperatura). A 73°C il petto è già stracotto e secco. Togli a 63–65°C, lascia riposare: arriva a 68°C e resta succosissimo.</div>
 
-  <h3>🐟 Pesce e Frutti di Mare</h3>
+  <h3>Pesce e Frutti di Mare</h3>
   <div class="table-wrap">
     <table aria-label="Tabella cottura pesce">
       <thead><tr><th>Tipo</th><th>Spessore</th><th>Tecnica</th><th>Temp BBQ</th><th>Temp Interna</th><th>Tempo indicativo</th></tr></thead>
       <tbody>
-        <tr><td>Salmone (trancio)</td><td>3–4 cm</td><td>Diretta media</td><td>200–220°C</td><td>48–52°C</td><td>4–5 min/lato</td></tr>
-        <tr><td>Orata / Branzino intero</td><td>400–600 g</td><td>Indiretta</td><td>180–200°C</td><td>55–58°C</td><td>18–25 min</td></tr>
-        <tr><td>Tonno (trancio)</td><td>3–4 cm</td><td>Diretta alta</td><td>250–280°C</td><td>40–42°C</td><td>1–2 min/lato</td></tr>
-        <tr><td>Spada (trancio)</td><td>2–3 cm</td><td>Diretta alta</td><td>250–270°C</td><td>52–55°C</td><td>3–4 min/lato</td></tr>
-        <tr><td>Gamberoni (con guscio)</td><td>—</td><td>Diretta alta</td><td>230–250°C</td><td>Rosa opaco</td><td>2–3 min/lato</td></tr>
-        <tr><td>Calamari</td><td>—</td><td>Diretta max</td><td>290–340°C</td><td>Bianco opaco</td><td>1–2 min/lato</td></tr>
-        <tr><td>Spiedini di pesce</td><td>Cubetti 3 cm</td><td>Diretta media</td><td>200–220°C</td><td>52°C</td><td>3–4 min/lato</td></tr>
+        <tr><td data-label="Tipo">Salmone (trancio)</td><td data-label="Spessore">3–4 cm</td><td data-label="Tecnica">Diretta media</td><td data-label="Temp BBQ">200–220°C</td><td data-label="Temp Interna">48–52°C</td><td data-label="Tempo">4–5 min/lato</td></tr>
+        <tr><td data-label="Tipo">Orata / Branzino intero</td><td data-label="Spessore">400–600 g</td><td data-label="Tecnica">Indiretta</td><td data-label="Temp BBQ">180–200°C</td><td data-label="Temp Interna">55–58°C</td><td data-label="Tempo">18–25 min</td></tr>
+        <tr><td data-label="Tipo">Tonno (trancio)</td><td data-label="Spessore">3–4 cm</td><td data-label="Tecnica">Diretta alta</td><td data-label="Temp BBQ">250–280°C</td><td data-label="Temp Interna">40–42°C</td><td data-label="Tempo">1–2 min/lato</td></tr>
+        <tr><td data-label="Tipo">Spada (trancio)</td><td data-label="Spessore">2–3 cm</td><td data-label="Tecnica">Diretta alta</td><td data-label="Temp BBQ">250–270°C</td><td data-label="Temp Interna">52–55°C</td><td data-label="Tempo">3–4 min/lato</td></tr>
+        <tr><td data-label="Tipo">Gamberoni (con guscio)</td><td data-label="Spessore">—</td><td data-label="Tecnica">Diretta alta</td><td data-label="Temp BBQ">230–250°C</td><td data-label="Temp Interna">Rosa opaco</td><td data-label="Tempo">2–3 min/lato</td></tr>
+        <tr><td data-label="Tipo">Calamari</td><td data-label="Spessore">—</td><td data-label="Tecnica">Diretta max</td><td data-label="Temp BBQ">290–340°C</td><td data-label="Temp Interna">Bianco opaco</td><td data-label="Tempo">1–2 min/lato</td></tr>
+        <tr><td data-label="Tipo">Spiedini di pesce</td><td data-label="Spessore">Cubetti 3 cm</td><td data-label="Tecnica">Diretta media</td><td data-label="Temp BBQ">200–220°C</td><td data-label="Temp Interna">52°C</td><td data-label="Tempo">3–4 min/lato</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h3>🥬 Verdure & Contorni</h3>
+  <h3>Verdure & Contorni</h3>
   <div class="table-wrap">
     <table aria-label="Tabella cottura verdure">
       <thead><tr><th>Alimento</th><th>Preparazione</th><th>Tecnica</th><th>Temp BBQ</th><th>Tempo indicativo</th></tr></thead>
       <tbody>
-        <tr><td>Pannocchie</td><td>Con foglie, ammollo 30 min</td><td>Diretta media</td><td>180–200°C</td><td>20–25 min</td></tr>
-        <tr><td>Peperoni</td><td>Interi</td><td>Diretta alta</td><td>250–280°C</td><td>10–15 min</td></tr>
-        <tr><td>Zucchine / Melanzane</td><td>Fette 1 cm</td><td>Diretta media</td><td>200–230°C</td><td>3–4 min/lato</td></tr>
-        <tr><td>Asparagi</td><td>Interi, oliati</td><td>Diretta media</td><td>200–220°C</td><td>6–8 min</td></tr>
-        <tr><td>Patate intere</td><td>Avvolte in alluminio</td><td>Indiretta</td><td>180–200°C</td><td>45–60 min</td></tr>
-        <tr><td>Funghi Portobello</td><td>Interi, olio e aglio</td><td>Diretta media</td><td>200–220°C</td><td>5–7 min/lato</td></tr>
-        <tr><td>Pizza (con pietra refrattaria)</td><td>Pietra preriscaldata 30 min</td><td>Indiretta: carboni a semicerchio sul perimetro, pietra al centro</td><td>300–340°C</td><td>4–6 min</td></tr>
-        <tr><td>Cipolle</td><td>Fette spesse 2 cm</td><td>Diretta media</td><td>200–220°C</td><td>5–6 min/lato</td></tr>
+        <tr><td data-label="Alimento">Pannocchie</td><td data-label="Preparazione">Con foglie, ammollo 30 min</td><td data-label="Tecnica">Diretta media</td><td data-label="Temp BBQ">180–200°C</td><td data-label="Tempo">20–25 min</td></tr>
+        <tr><td data-label="Alimento">Peperoni</td><td data-label="Preparazione">Interi</td><td data-label="Tecnica">Diretta alta</td><td data-label="Temp BBQ">250–280°C</td><td data-label="Tempo">10–15 min</td></tr>
+        <tr><td data-label="Alimento">Zucchine / Melanzane</td><td data-label="Preparazione">Fette 1 cm</td><td data-label="Tecnica">Diretta media</td><td data-label="Temp BBQ">200–230°C</td><td data-label="Tempo">3–4 min/lato</td></tr>
+        <tr><td data-label="Alimento">Asparagi</td><td data-label="Preparazione">Interi, oliati</td><td data-label="Tecnica">Diretta media</td><td data-label="Temp BBQ">200–220°C</td><td data-label="Tempo">6–8 min</td></tr>
+        <tr><td data-label="Alimento">Patate intere</td><td data-label="Preparazione">Avvolte in alluminio</td><td data-label="Tecnica">Indiretta</td><td data-label="Temp BBQ">180–200°C</td><td data-label="Tempo">45–60 min</td></tr>
+        <tr><td data-label="Alimento">Funghi Portobello</td><td data-label="Preparazione">Interi, olio e aglio</td><td data-label="Tecnica">Diretta media</td><td data-label="Temp BBQ">200–220°C</td><td data-label="Tempo">5–7 min/lato</td></tr>
+        <tr><td data-label="Alimento">Pizza (con pietra refrattaria)</td><td data-label="Preparazione">Pietra preriscaldata 30 min</td><td data-label="Tecnica">Indiretta: carboni a semicerchio sul perimetro, pietra al centro</td><td data-label="Temp BBQ">300–340°C</td><td data-label="Tempo">4–6 min</td></tr>
+        <tr><td data-label="Alimento">Cipolle</td><td data-label="Preparazione">Fette spesse 2 cm</td><td data-label="Tecnica">Diretta media</td><td data-label="Temp BBQ">200–220°C</td><td data-label="Tempo">5–6 min/lato</td></tr>
       </tbody>
     </table>
   </div>
@@ -354,21 +405,32 @@
 
 <!-- ===== TECNICHE AVANZATE ===== -->
 <section class="lezione" aria-labelledby="avanzate-heading">
-  <h2 id="avanzate-heading">🔧 Tecniche Avanzate</h2>
+  <h2 id="avanzate-heading">Tecniche Avanzate</h2>
 
   <div class="card">
-    <h4>🧰 Teglia di Alluminio sul Weber Kettle — Due Metodi Opposti</h4>
-    <p><strong>🥘 Teglia FORATA (Cottura Diretta):</strong> per verdure piccole o a cubetti (funghetti, pomodorini, rondelle di zucchine). Fora il fondo con la punta di un coltello. Mettila in cottura Diretta media (200–220°C) direttamente sopra i carboni. I fori fanno passare calore radiante e fumo, donando vero sapore di brace. Mescola ogni 3–4 minuti.</p>
-    <p><strong>🥗 Teglia INTERA (Cottura Indiretta):</strong> teglia NON forata = funziona come una teglia da forno. Usare esclusivamente in Indiretta (180–200°C), posizionata al centro con carboni ai lati. Mai sopra i carboni: l'alluminio sottile si deformerebbe. Perfetta per verdure stufate (ratatouille, caponata): olio abbondante, aglio, rosmarino. 25–40 minuti totali.</p>
+    <h4>Teglia di Alluminio sul Weber Kettle — Due Metodi Opposti</h4>
+    <p><strong>Teglia FORATA (Cottura Diretta):</strong> per verdure piccole o a cubetti (funghetti, pomodorini, rondelle di zucchine). Fora il fondo con la punta di un coltello. Mettila in cottura Diretta media (200–220°C) direttamente sopra i carboni. I fori fanno passare calore radiante e fumo, donando vero sapore di brace. Mescola ogni 3–4 minuti.</p>
+    <p><strong>Teglia INTERA (Cottura Indiretta):</strong> teglia NON forata = funziona come una teglia da forno. Usare esclusivamente in Indiretta (180–200°C), posizionata al centro con carboni ai lati. Mai sopra i carboni: l'alluminio sottile si deformerebbe. Perfetta per verdure stufate (ratatouille, caponata): olio abbondante, aglio, rosmarino. 25–40 minuti totali.</p>
   </div>
 
   <div class="card">
-    <h4>🪵 Affumicatura con Legno</h4>
+    <h4>Il Metodo 3-2-1 per le Costine (Ribs)</h4>
+    <p>Il Santo Graal delle ribs sul Weber Kettle. Il nome è la formula: <strong>3 ore di fumo, 2 ore avvolte, 1 ora di glassatura.</strong></p>
+    <ol>
+      <li><strong>Fase 1 — 3 ore:</strong> costine a osso nudo, sul calore indiretto a 120–135°C. Aggiungi 1–2 chunks di legno (hickory o melo). Non toccare, non aprire. Il fumo fa il suo lavoro.</li>
+      <li><strong>Fase 2 — 2 ore:</strong> avvolgi le costine in un doppio strato di alluminio con 2 cucchiai di zucchero di canna, miele, burro e un goccio di succo di mela. Sigilla bene. Rimetti in indiretta a 120–135°C. Il vapore rompe il collagene e rende la carne tenerissima.</li>
+      <li><strong>Fase 3 — 1 ora:</strong> apri il cartoccio, pennella con BBQ sauce uno strato sottile e rimetti sulla griglia senza alluminio. Ogni 15 minuti aggiungi un'altra mano di salsa. In quest'ora la salsa caramellizza e forma la crosticina lucida (bark).</li>
+    </ol>
+    <p>Per Baby Back Ribs più sottili: adatta a 2-1-0.5 (totale 3.5 ore). Per St. Louis Cut: 3-2-1 classico. <strong>Test di cottura:</strong> le costine sono pronte quando, sollevandole con pinze a metà rack, si piegano a U e la superficie si crepa leggermente (bend test). Temperatura interna target: 88–92°C.</p>
+  </div>
+
+  <div class="card">
+    <h4>Affumicatura con Legno</h4>
     <p>Metti <strong>chunks di legno</strong> (hickory, mesquite, ciliegio, melo) direttamente sui carboni ardenti. Non serve ammollo: il legno bagnato produce vapore, non fumo pulito. 1–2 chunks per una grigliata standard. Per Low & Slow: aggiungi chunks ogni ora. <strong>Abbinamenti:</strong> hickory → maiale, mesquite → manzo, ciliegio/melo → pollo e pesce. Evita legni resinosi (pino, abete): tossici.</p>
   </div>
 
   <div class="card">
-    <h4>🧂 Sale Grosso: Quando, Quanto, Perché</h4>
+    <h4>Sale Grosso: Quando, Quanto, Perché</h4>
     <p>Su bistecche e tagli spessi: sale generosamente con sale grosso (Maldon o fleur de sel). Due metodi corretti supportati dalla scienza della carne:</p>
     <ol>
       <li><strong>Dry Brining:</strong> minimo 4 ore prima, idealmente 12–24 ore in frigo su griglia rialzata. Il sale penetra in profondità, scioglie le proteine e trattiene l'umidità. È la tecnica professionale.</li>
@@ -378,24 +440,24 @@
   </div>
 
   <div class="card">
-    <h4>💨 Gestione Fiammate (Flare-Up)</h4>
+    <h4>Gestione Fiammate (Flare-Up)</h4>
     <p>Le fiammate sono normali quando il grasso cola sulla brace. <strong>Mai usare acqua.</strong> Sposta la carne nella zona senza carboni, chiudi il coperchio e aspetta che la fiamma si spenga da sola (manca ossigeno). Se la fiammata è costante: hai troppi carboni o la carne è troppo grassa. Riduci i bricchetti o scegli tagli meno grassi.</p>
   </div>
 
   <div class="card">
-    <h4>🧈 Salse e Glasse: Il Momento Giusto</h4>
+    <h4>Salse e Glasse: Il Momento Giusto</h4>
     <p>Le salse zuccherine (BBQ sauce, glaze al miele) si applicano solo negli <strong>ultimi 5–10 minuti</strong> di cottura. Lo zucchero a contatto diretto con la brace brucia sopra i 150°C e diventa nero e amaro. Tecnica: pennella uno strato sottile, chiudi coperchio 3 minuti, gira, altro strato, altri 3 minuti. Ripeti per 2–3 mani.</p>
   </div>
 
   <div class="card">
-    <h4>♻️ Riutilizzare i Bricchetti — Zero Sprechi</h4>
+    <h4>Riutilizzare i Bricchetti — Zero Sprechi</h4>
     <p>A fine grigliata, chiudi entrambe le prese d'aria. I carboni si spengono in 30–45 minuti. Quelli parzialmente usati (non completamente ridotti in cenere) possono essere riutilizzati. Mettili nel camino insieme a bricchetti nuovi (metà usati, metà nuovi). I bricchetti usati si accendono più in fretta. Rimuovi sempre la cenere prima di ripartire.</p>
   </div>
 </section>
 
 <!-- ===== MANUTENZIONE ===== -->
 <section class="lezione" aria-labelledby="manutenzione-heading">
-  <h2 id="manutenzione-heading">🛠️ Manutenzione del Weber Kettle</h2>
+  <h2 id="manutenzione-heading">Manutenzione del Weber Kettle</h2>
 
   <div class="card">
     <h3>Pulizia Post-Grigliata</h3>
@@ -436,18 +498,23 @@
   </div>
 </section>
 
-<!-- ===== CTA FINALE ===== -->
-<section class="kicker" id="corso" aria-labelledby="cta-heading">
-  <h2 id="cta-heading">Pronto a diventare un vero Pitmaster?</h2>
-  <p style="max-width:500px;margin:0 auto 1.5rem">Corsi pratici one-to-one con il tuo Weber 5750 a carbonella. Tecnica, gestione brace, prese d'aria, temperature — tutto sul campo.</p>
-  <a href="mailto:corsi@example.com?subject=Corso%20Weber%205750" class="btn btn-primary" style="font-size:1.1rem;padding:1rem 2rem;">Prenota il Tuo Corso</a>
-</section>
-
 </main>
 
 <footer>
   <p>Weber 5750 Masterclass — Guida creata da un campione mondiale di grigliate.<br>&copy; 2026 · Tutti i diritti riservati.</p>
 </footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">↑</button>
+
+<script>
+  const btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 500);
+  });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 
 </body>
 </html>
